@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="add_user">add user</button>
+    <script>
+      const addUser = async (email) => {
+        const url = "http://52.58.87.9:9000/users"; // Replace with your server's address if needed
+        try {
+          const response = await fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: "kamil@hello.com",
+              name: "Hattori Hanzo",
+            }),
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error ${response.status}`);
+          }
+
+          const savedUser = await response.json();
+          console.log("User saved:", savedUser);
+        } catch (error) {
+          console.error("Error saving the user:", error);
+        }
+      };
+
+      const generateImage = async () => {
+        const url = "http://localhost:9000/generate-image";
+        try {
+          const params = {
+            socialMediaPlatform: "Facebook",
+            brandName: "Gege Cake",
+            products: [
+              "Desserts",
+              "bakery",
+              "foods",
+              "cakes",
+              "cookies",
+              "croissants",
+              "pies",
+            ],
+            city: "London",
+            foundationyear: 1990,
+            companySlogan: "Eat little bit",
+            competitors: ["Entree", "PeckaCudo"],
+            numberOfPost: 1,
+            postTone: "friendly",
+          };
+
+          const response = await fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(params),
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error ${response.status}`);
+          }
+
+          const savedUser = await response.json();
+          console.log("User saved:", savedUser);
+        } catch (error) {
+          console.error("Error saving the user:", error);
+        }
+      };
+
+      const generateAccessToken = async (email) => {
+        const url = "http://localhost:9000/access-tokens/fb-long-lived-page-access-token";
+        try {
+          const response = await fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              userId: '10220739380709104',
+              shortLivedAccessToken: "EAATZCkdCwZB1wBACpABCeizjERcaZBwkdcbFBap2ZCZAkVab4RW7M2NmJ67GPBWK1mjJZA7RfxjRiqv3ZCoytmtWDyFJmZBpNFEZAhZCNqyqUGafzTFEH6ZB1zijhVzAzviVWxj4pxItraTLlolmuVctgXeOwcM3mc7ZAEWWzZBWG32E30xW8lMsF5xVZCf4ftzYuZBKd8CVaq4VhbLTyEDYz8YyR5p",
+            }),
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error ${response.status}`);
+          }
+
+          const savedUser = await response.json();
+          console.log("User saved:", savedUser);
+        } catch (error) {
+          console.error("Error saving the user:", error);
+        }
+      };
+
+      document.getElementById("add_user").onclick = () => {
+        generateAccessToken();
+      };
+    </script>
+  </body>
+</html>
